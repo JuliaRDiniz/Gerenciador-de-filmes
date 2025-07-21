@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <link rel="stylesheet" href="style.css" />
+
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.13.1/font/bootstrap-icons.min.css"
+    />
+    <link rel="stylesheet" href="notie-master/dist/notie.min.css" />
+  </head>
+  <body class="body">
+    <header class="header">
+      <div class="logo">
+        <i class="bi bi-film"></i>
+        <p>MeusFilmes</p>
+      </div>
+
+      <i class="bi bi-moon-stars-fill" id="btn-moon"></i>
+    </header>
+    <main>
+      <section id="home-into">
+        <h1>Comece agora sua lista de filmes!</h1>
+        <p>Pesquise e adicione seus filmes favoritos para assistir depois.</p>
+        <div class="box-input">
+          <div class="input-name">
+            <label for="movie-name">Nome do filme:</label>
+            <input type="text" id="movie-name" />
+          </div>
+
+          <button class="btn-search">
+            <i class="bi bi-search"></i>
+          </button>
+        </div>
+      </section>
+      <section id="movie-list"></section>
+      <article id="modal-overlay">
+        <section id="modal-background"></section>
+        <section id="modal-container"></section>
+      </article>
+    </main>
+
+    <script src="themoviedb.js"></script>
+    <script src="script.js"></script>
+    <script src="modal.js"></script>
+    <script src="notie-master/dist/notie.min.js"></script>
+  </body>
+</html>

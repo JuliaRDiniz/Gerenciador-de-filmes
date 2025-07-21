@@ -1,0 +1,235 @@
+:root {
+  --primary-color: #ff910a;
+  --light-primary: #ffb347;
+  --dark-primary: #b86b00;
+  --lightest-color: #fffcdd;
+  --second-color: #6f7c12;
+
+  --dark-primary-color: #1e1e1e;
+  --dark-light-primary: #9283af;
+  --dark-lightest-color: #252629;
+  --dark-second-color: #4a1096;
+}
+
+body.dark-mode {
+  & #modal-overlay {
+    & #modal-container {
+      background-color: var(--dark-lightest-color);
+      box-shadow: 0px 0 10px 5px var(--dark-light-primary);
+
+      &::-webkit-scrollbar-thumb {
+        background: linear-gradient(
+          to bottom,
+          var(--dark-light-primary),
+          var(--dark-second-color)
+        );
+      }
+
+      & #movie-info {
+        & .movie-sinopse {
+          & #movie-plot {
+            &::-webkit-scrollbar-thumb {
+              background: var(--dark-light-primary) !important;
+            }
+          }
+        }
+      }
+
+      & #modal-footer {
+        & #add-to-list {
+          border: 3px solid var(--dark-light-primary);
+          background-color: #252629;
+          color: #e0e0e0;
+
+          &:hover {
+            background-color: #7a668754;
+            color: #e0e0e0;
+          }
+        }
+      }
+    }
+  }
+}
+
+#modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  visibility: hidden;
+  transition: all 0.3s ease;
+
+  &.visible {
+    visibility: visible;
+  }
+
+  & #modal-background {
+    background: rgba(49, 48, 46, 0.699);
+    -webkit-backdrop-filter: blur(5px);
+    backdrop-filter: blur(3px);
+    opacity: 0.5;
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    z-index: 0;
+  }
+
+  & #modal-container {
+    padding: 1rem 3rem;
+    background-color: var(--lightest-color);
+    position: relative;
+    z-index: 1;
+    border-radius: 1rem;
+    max-height: 48rem;
+    text-align: center;
+    transform: matrix(1.03, 0, 0, 1.05, 0, 0.9);
+    box-shadow: 0px 0 10px 5px var(--primary-color);
+
+    @media (max-width: 960px) {
+      max-width: 58rem;
+    }
+
+    @media (max-width: 770px) {
+      max-width: 40rem;
+      overflow: hidden;
+      overflow-y: overlay;
+
+      &::-webkit-scrollbar {
+        width: 6px;
+      }
+
+      &::-webkit-scrollbar-thumb {
+        background: linear-gradient(
+          to bottom,
+          var(--light-primary),
+          var(--primary-color)
+        );
+        border-radius: 10px;
+      }
+
+      &::-webkit-scrollbar-track {
+        background-color: transparent;
+      }
+    }
+
+    @media (max-width: 570px) {
+      max-width: 30rem;
+    }
+
+    @media (min-aspect-ratio: 1/1) and (max-width: 960px) {
+      width: 80vw;
+      max-height: 80vh;
+    }
+
+    .btn-close-modal {
+      position: absolute;
+      top: 15px;
+      right: 15px;
+      background: transparent;
+      border: none;
+      font-size: 1.5rem;
+      cursor: pointer;
+      color: inherit; /* ou a cor que combine com seu modal */
+      z-index: 10;
+    }
+
+    & .title-modal {
+      padding: 1rem 0 1rem 0;
+      font-size: 1.8rem;
+    }
+
+    & #modal-body {
+      display: flex;
+      justify-content: center;
+      padding: 1rem 0;
+
+      @media (max-width: 770px) {
+        flex-flow: column;
+        align-items: center;
+      }
+
+      & #movie-poster {
+        border-radius: 1rem;
+        max-height: 34rem;
+
+        @media (max-width: 960px) {
+          max-height: 30rem;
+        }
+        @media (max-width: 770px) {
+          max-height: 21rem;
+        }
+      }
+
+      & #movie-info {
+        display: flex;
+        flex-direction: column;
+        justify-content: space-around;
+        max-width: 30rem;
+        padding-left: 1.7rem;
+
+        & .movie-sinopse {
+          padding-bottom: 1rem;
+
+          & .subtitle {
+            padding-bottom: 1rem;
+          }
+
+          & #movie-plot {
+            text-align: start;
+            overflow-y: scroll;
+            max-height: 25rem;
+
+            &::-webkit-scrollbar {
+              width: 8px;
+            }
+
+            &::-webkit-scrollbar-thumb {
+              background: linear-gradient(
+                to bottom,
+                var(--light-primary),
+                var(--primary-color)
+              );
+              border-radius: 10px;
+            }
+
+            &::-webkit-scrollbar-track {
+              background-color: transparent;
+            }
+          }
+        }
+
+        h3 {
+          font-size: 1.2rem;
+        }
+
+        h5 {
+          font-size: 2rem;
+        }
+        .bi-star {
+          color: #cfcb00;
+        }
+      }
+    }
+
+    & #modal-footer {
+      & #add-to-list {
+        cursor: pointer;
+        border: 3px solid var(--light-primary);
+        padding: 0.3rem 0;
+        width: 100%;
+        border-radius: 1rem;
+        font-weight: bold;
+        box-shadow: 1px 1px 10px #00000088;
+
+        &:hover {
+          background-color: var(--light-primary);
+          color: var(--lightest-color);
+        }
+      }
+    }
+  }
+}

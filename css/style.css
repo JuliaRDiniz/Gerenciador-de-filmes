@@ -1,0 +1,17 @@
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+  font-family: "Arial", sans-serif;
+}
+
+body {
+  background-color: #ffd392;
+  color: #333;
+  line-height: 1.6;
+}
+
+.header {
+  background-color: #c78800;
+  color: white;
+} /*# sourceMappingURL=style.css.map */
