@@ -152,7 +152,7 @@
         };
 
         var options = {
-          alertTime: 2,
+          alertTime: 3,
           dateMonths: [
             "January",
             "February",
@@ -225,7 +225,7 @@
         };
         var wait = function wait(time) {
           return new Promise(function (resolve) {
-            return setTimeout(resolve, time * 100);
+            return setTimeout(resolve, time * 1000);
           });
         };
 
