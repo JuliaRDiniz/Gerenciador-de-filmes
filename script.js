@@ -50,6 +50,11 @@ document.addEventListener("DOMContentLoaded", () => {
 
   function addToList(movieObject) {
     movieList.push(movieObject);
+    updateLocalStorage();
+
+    // Filme novo aparece imediatamente, sem delay
+    updateUI(movieObject);
+
     overlay.classList.remove("visible");
   }
 
@@ -60,20 +65,57 @@ document.addEventListener("DOMContentLoaded", () => {
     return Boolean(movieList.find(doesThisIdBelongToThisMovie));
   }
 
-  function updateUI(movieObject) {
-    movieListElement.innerHTML += `<article id="movie-card-${movieObject.id}">
-    <img
-    class="movie-poster"
-    src=${images_uri}${movieObject.poster_path}
-    alt="Poster de ${movieObject.title}"
-    data-id="${movieObject.id}"
-    />
-    <button class="btn-remove" onclick="removeFilmFromList('${movieObject.id}')" >
-    Remover <i class="bi bi-trash"></i>
-          </button>
-          </article>`;
+  // function updateUI(movieObject) {
+  //   const cardHTML = `
+  //   <article class="hidden" id="movie-card-${movieObject.id}">
+  //     <img
+  //       class="movie-poster"
+  //       src=${images_uri}${movieObject.poster_path}
+  //       alt="Poster de ${movieObject.title}"
+  //       data-id="${movieObject.id}"
+  //     />
+  //     <button class="btn-remove" onclick="removeFilmFromList('${movieObject.id}')">
+  //       Remover <i class="bi bi-trash"></i>
+  //     </button>
+  //   </article>
+  // `;
 
+  //   movieListElement.insertAdjacentHTML("beforeend", cardHTML);
+
+  //   addPosterClickEvents();
+
+  //   const newCard = document.getElementById(`movie-card-${movieObject.id}`);
+  //   myObserver.observe(newCard);
+  // }
+
+  // Substitua a função updateUI pelo bloco abaixo
+  function updateUI(movieObject, index = null) {
+    const cardHTML = `
+    <article class="hidden" id="movie-card-${movieObject.id}">
+      <img
+        class="movie-poster"
+        src=${images_uri}${movieObject.poster_path}
+        alt="Poster de ${movieObject.title}"
+        data-id="${movieObject.id}"
+      />
+      <button class="btn-remove" onclick="removeFilmFromList('${movieObject.id}')">
+        Remover <i class="bi bi-trash"></i>
+      </button>
+    </article>
+  `;
+
+    movieListElement.insertAdjacentHTML("beforeend", cardHTML);
     addPosterClickEvents();
+
+    const newCard = document.getElementById(`movie-card-${movieObject.id}`);
+
+    if (typeof index === "number" && index > 0) {
+      setTimeout(() => {
+        myObserver.observe(newCard);
+      }, index * 350);
+    } else {
+      myObserver.observe(newCard);
+    }
   }
 
   function addPosterClickEvents() {
@@ -89,6 +131,15 @@ document.addEventListener("DOMContentLoaded", () => {
       });
     });
   }
+
+  const myObserver = new IntersectionObserver((entries) => {
+    entries.forEach((entry) => {
+      if (entry.isIntersecting) {
+        entry.target.classList.remove("hidden");
+        myObserver.unobserve(entry.target); // anima só uma vez
+      }
+    });
+  });
 
   function removeFilmFromList(id) {
     notie.confirm({
@@ -108,10 +159,9 @@ document.addEventListener("DOMContentLoaded", () => {
   function updateLocalStorage() {
     localStorage.setItem("movieList", JSON.stringify(movieList));
   }
-
-  for (const movieInfo of movieList) {
-    updateUI(movieInfo);
-  }
+  movieList.forEach((movieInfo, index) => {
+    updateUI(movieInfo, index);
+  });
 
   btnMoon.addEventListener("click", function toggleTheme() {
     if (!body.classList.contains("dark-mode")) {
